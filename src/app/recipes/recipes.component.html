@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <app-recipe-list></app-recipe-list>
+        </div>
+        <div class="col-md-7">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+<!-- new logic is will be with router -->
+ <!-- this is old logic, this been inside div with col-md-7 class -->
+<!-- <app-recipe-details *ngIf="selectedRecipe; else infoText" [recipe]='selectedRecipe'></app-recipe-details>
+<ng-template #infoText>
+    <p>Please select a Recipe!</p>
+</ng-template> -->
