@@ -10,19 +10,28 @@ import { Subject } from 'rxjs';
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
-    new Recipe('Sebzi Plov',
-      'Duyuden hazirlanir, adama lezzet edir',
-      'https://www.crunchycreamysweet.com/wp-content/uploads/2018/06/easy-grilled-chicken-salad-1-500x500.jpg',
-      [new Ingredient('Duyu', 5), new Ingredient('Sebzi', 10)]),
-    new Recipe('Basdirma',
-      'Quzu etinden hazirlanir',
-      'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2017/06/under-300-calories-cod-cucumber-avocado-mango-salsa-salad.jpg',
-      [new Ingredient('Quzu eti', 2), new Ingredient('Nar', 3)])
-  ]
+  // I am already use firebase, thas=t is way dont need dummy data
+  // private recipes: Recipe[] = [
+  //   new Recipe('Sebzi Plov',
+  //     'Duyuden hazirlanir, adama lezzet edir',
+  //     'https://www.crunchycreamysweet.com/wp-content/uploads/2018/06/easy-grilled-chicken-salad-1-500x500.jpg',
+  //     [new Ingredient('Duyu', 5), new Ingredient('Sebzi', 10)]),
+  //   new Recipe('Basdirma',
+  //     'Quzu etinden hazirlanir',
+  //     'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2017/06/under-300-calories-cod-cucumber-avocado-mango-salsa-salad.jpg',
+  //     [new Ingredient('Quzu eti', 2), new Ingredient('Nar', 3)])
+  // ]
+
+  private recipes: Recipe[] = [];
 
   // we get ingredients from recipe.items, and now pass to shoppinglist
   constructor(private shoppinglistService: ShoppingListService) { }
+
+  // this method use when we fetch data from api, we override recipe which here 
+  setRecipes(recipes: Recipe[]){
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   // slice means we get new copy
   getRecipes() {

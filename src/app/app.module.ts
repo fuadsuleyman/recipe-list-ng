@@ -1,46 +1,36 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { RecipesComponent } from './recipes/recipes.component';
-import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
-import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.component';
-import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { HeaderComponent } from './header/header.component';
-import { DropdownDirective } from './shared/dropdown.directive';
 import { RecipeService } from './services/recipe.service';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { ShoppingListService } from './services/shopping-list.service';
-import { AppRoutingModule, routingComponents } from './app-routing.module';
-import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
-import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AuthGuard } from './auth/auth.guard';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents,
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailsComponent,
-    RecipeItemComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
     HeaderComponent,
-    DropdownDirective,
-    RecipeStartComponent,
-    RecipeEditComponent,
-    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    HttpClientModule,
+    SharedModule
   ],
-  providers: [RecipeService, ShoppingListService],
+  providers: [
+    RecipeService,
+    RouterModule,
+    ShoppingListService,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
+    AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

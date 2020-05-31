@@ -1,0 +1,8 @@
+<!-- first it is when we click outside of error modal -->
+<div class="backdrop" (click)="onClose()"></div>
+<div class="alert-box" (click)="onClose()">
+    <p>{{ message }}</p>
+    <div class="alert-box-actions">
+        <div class="btn btn-primary">Close</div>
+    </div>
+</div>
